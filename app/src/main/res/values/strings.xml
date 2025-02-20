@@ -2,5 +2,9 @@
     <string name="app_name">6-2</string>
 
     <string-array name="operator">
+        <item>+</item>
+        <item>-</item>
+        <item>*</item>
+        <item>/</item>
     </string-array>
 </resources>

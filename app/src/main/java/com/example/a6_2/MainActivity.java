@@ -39,9 +39,46 @@ public class MainActivity extends AppCompatActivity {
 
         spinnerOperation.setAdapter(adapter);
     }
-    public void calculate (View view){
+    public void calculate(View view) {
+        EditText editText1 = (EditText) findViewById(R.id.editTextNumber);
+        EditText editText2 = (EditText) findViewById(R.id.editTextNumber2);
+        Spinner spinnerOperation = (Spinner) findViewById(R.id.spinner);
         TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(spinnerOperation.getSelectedItem().toString());
-    }
+
+        String num1Str = editText1.getText().toString();
+        String num2Str = editText2.getText().toString();
+
+        if (!num1Str.isEmpty() && !num2Str.isEmpty()) {
+            float num1 = Float.parseFloat(num1Str);
+            float num2 = Float.parseFloat(num2Str);
+            String operation = spinnerOperation.getSelectedItem().toString();
+            float result = 0;
+
+            switch (operation) {
+                case "+":
+                    result = num1 + num2;
+                    break;
+                case "-":
+                    result = num1 - num2;
+                    break;
+                case "*":
+                    result = num1 * num2;
+                    break;
+                case "/":
+                    if (num2 != 0) {
+                        result = num1 / num2;
+                    } else {
+                        textView.setText("Error: Nelze dělit nulou");
+                        return;
+                    }
+                    break;
+                default:
+                    textView.setText("Error");
+                    return;
+            }
+            textView.setText(String.valueOf(result));
+        } else {
+            textView.setText("Error");
+        }
     }
 }
