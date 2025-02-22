@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
         String num2Str = editText2.getText().toString();
         String operation = spinnerOperation.getSelectedItem().toString();
 
-        if (num1Str.isEmpty()) {
+        if (num1Str.isEmpty()) { // podmínka zadání prvního čísla
             textView.setText("Error: Zadejte první číslo");
             return;
         }
-
+        // deklarace proměnných
         float num1 = Float.parseFloat(num1Str);
         float num2 = 0;
         double result = 0;
@@ -61,11 +61,11 @@ public class MainActivity extends AppCompatActivity {
         if (!num2Str.isEmpty() && !operation.equals("!")) {
             num2 = Float.parseFloat(num2Str);
         }
-        if (num2Str.isEmpty() && !operation.equals("!")) {
+        if (num2Str.isEmpty() && !operation.equals("!")) { // podmínka zadání druhého čísla
             textView.setText("Error: Zadejte druhé číslo");
             return;
         }
-
+            // switch pro zvolení operace
             switch (operation) {
                 case "+":
                     result = num1 + num2;
@@ -100,9 +100,14 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "!":
                     editText2.setText("");
-                    result = 1;
-                    for (int i = 1; i <= num1; i++){
-                        result *= i;
+                    if (num1 % 1 == 0){
+                        result = 1;
+                        for (int i = 1; i <= num1; i++){ //loop pro výpočet faktoriálu
+                            result *= i;
+                        }
+                    } else {
+                        textView.setText("Error: Zadejte celé číslo");
+                        return;
                     }
                     break;
                 default:
