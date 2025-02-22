@@ -47,12 +47,24 @@ public class MainActivity extends AppCompatActivity {
 
         String num1Str = editText1.getText().toString();
         String num2Str = editText2.getText().toString();
+        String operation = spinnerOperation.getSelectedItem().toString();
 
-        if (!num1Str.isEmpty() && !num2Str.isEmpty()) {
-            float num1 = Float.parseFloat(num1Str);
-            float num2 = Float.parseFloat(num2Str);
-            String operation = spinnerOperation.getSelectedItem().toString();
-            double result = 0;
+        if (num1Str.isEmpty()) {
+            textView.setText("Error: Zadejte první číslo");
+            return;
+        }
+
+        float num1 = Float.parseFloat(num1Str);
+        float num2 = 0;
+        double result = 0;
+
+        if (!num2Str.isEmpty() && !operation.equals("!")) {
+            num2 = Float.parseFloat(num2Str);
+        }
+        if (num2Str.isEmpty() && !operation.equals("!")) {
+            textView.setText("Error: Zadejte druhé číslo");
+            return;
+        }
 
             switch (operation) {
                 case "+":
@@ -83,13 +95,20 @@ public class MainActivity extends AppCompatActivity {
                 case "^":
                     result = Math.pow(num1, num2);
                     break;
+                case "√":
+                    result = Math.pow(num2, 1.0 / num1);
+                    break;
+                case "!":
+                    editText2.setText("");
+                    result = 1;
+                    for (int i = 1; i <= num1; i++){
+                        result *= i;
+                    }
+                    break;
                 default:
                     textView.setText("Error");
                     return;
             }
             textView.setText(String.valueOf(result));
-        } else {
-            textView.setText("Error");
-        }
     }
 }
