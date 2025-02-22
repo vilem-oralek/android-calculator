@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
             float num1 = Float.parseFloat(num1Str);
             float num2 = Float.parseFloat(num2Str);
             String operation = spinnerOperation.getSelectedItem().toString();
-            float result = 0;
+            double result = 0;
 
             switch (operation) {
                 case "+":
@@ -71,6 +71,17 @@ public class MainActivity extends AppCompatActivity {
                         textView.setText("Error: Nelze dělit nulou");
                         return;
                     }
+                    break;
+                case "%":
+                    if (num2 != 0) {
+                        result = num1 % num2;
+                    } else {
+                        textView.setText("Error: Nelze dělit nulou");
+                        return;
+                    }
+                    break;
+                case "^":
+                    result = Math.pow(num1, num2);
                     break;
                 default:
                     textView.setText("Error");
