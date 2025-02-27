@@ -93,20 +93,31 @@ public class MainActivity extends AppCompatActivity {
                     }
                     break;
                 case "^":
-                    result = Math.pow(num1, num2);
+                    if (num1 != 0 && num2 > 0){
+                        result = Math.pow(num1, num2);
+                    }
+                    else {
+                        textView.setText("Error: Tato mocnina neexistuje");
+                        return;
+                    }
                     break;
                 case "√":
-                    result = Math.pow(num2, 1.0 / num1);
+                    if ((num2 > 0 || num1 % 2 == 1) && num1 != 0){
+                        result = Math.pow(num2, 1.0 / num1);
+                    } else{
+                        textView.setText("Error: Tato odmocnina neexistuje");
+                        return;
+                    }
                     break;
                 case "!":
                     editText2.setText("");
-                    if (num1 % 1 == 0){
+                    if (num1 % 1 == 0 && num1 >= 0){
                         result = 1;
                         for (int i = 1; i <= num1; i++){ //loop pro výpočet faktoriálu
                             result *= i;
                         }
                     } else {
-                        textView.setText("Error: Zadejte celé číslo");
+                        textView.setText("Error: Zadejte celé nezáporné číslo");
                         return;
                     }
                     break;
